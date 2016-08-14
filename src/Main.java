@@ -15,5 +15,6 @@ public class Main {
 		Dragon dragon = DragonCreator.createDragonNormal(knight);
 		System.out.println(dragon);
 		System.out.println(Utils.writeJsonStringFromDragon(dragon));
+		System.out.println(Utils.putDragon(dragon));
 	}
 }
