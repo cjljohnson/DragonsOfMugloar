@@ -19,6 +19,11 @@ public class DragonCreator {
 		int wingStrength = knight.getAgility() + statModifier(knight, Knight.AGILITY);
 		int fireBreath = knight.getEndurance() + statModifier(knight, Knight.ENDURANCE);
 		
+		if (scaleThickness < 0){scaleThickness = 0;}
+		if (clawSharpness < 0){clawSharpness = 0;}
+		if (wingStrength < 0){wingStrength = 0;}
+		if (fireBreath < 0){fireBreath = 0;}
+		
 		totalStats = scaleThickness + clawSharpness + wingStrength + fireBreath;
 		
 		// Distribute remaining stat points evenly
