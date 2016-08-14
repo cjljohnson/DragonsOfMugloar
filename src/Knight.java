@@ -7,6 +7,10 @@ public class Knight {
 	private int armor;
 	private int agility;
 	private int endurance;
+	public static int ATTACK = 1;
+	public static int ARMOR = 2;
+	public static int AGILITY = 3;
+	public static int ENDURANCE = 4;
 	
 	public Knight () {
 		
@@ -67,6 +71,27 @@ public class Knight {
 
 	public void setEndurance(int endurance) {
 		this.endurance = endurance;
+	}
+	
+	public int getAttributePosition(int attribute) {
+		int position = 1;
+		int attributeValue = 0;
+		
+		// Get value of attribute specified
+		if (attribute == ATTACK){attributeValue = this.attack;}
+		else if (attribute == ARMOR){attributeValue = this.armor;}
+		else if (attribute == AGILITY){attributeValue = this.agility;}
+		else if (attribute == ENDURANCE){attributeValue = this.endurance;}
+		else{return 0;}
+		
+		// Compare stat against other stats
+		if (attributeValue < this.attack){position++;}
+		if (attributeValue < this.armor){position++;}
+		if (attributeValue < this.agility){position++;}
+		if (attributeValue < this.endurance){position++;}
+		
+		return position;
+		
 	}
 	
 	public String toString() {

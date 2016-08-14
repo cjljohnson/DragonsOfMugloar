@@ -66,7 +66,17 @@ public class Dragon {
 		this.fireBreath = fireBreath;
 	}
 	
-	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("ID: " + id);
+		sb.append("\nSCALETHICKNEES: " + scaleThickness);
+		sb.append("\nCLAWSHARPNESS: " + clawSharpness);
+		sb.append("\nWINGSTRENGTH: " + wingStrength);
+		sb.append("\nFIREBREATH: " + fireBreath);
+		
+		return sb.toString();
+	}
 	
 	
 }
