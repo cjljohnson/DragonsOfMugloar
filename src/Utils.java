@@ -117,4 +117,30 @@ public class Utils {
 		}
 		return null;
 	}
+	
+	public static String writeJsonStringFromDragon(Dragon dragon) {
+		// If Dragon is null, return early
+		if (dragon == null) {
+			return null;
+		}
+		
+		String jsonString = "";
+		try {
+			// Add dragon attributes
+			JSONObject dragonJSON = new JSONObject();
+			dragonJSON.put("scaleThickness", dragon.getScaleThickness());
+			dragonJSON.put("clawSharpness", dragon.getClawSharpness());
+			dragonJSON.put("wingStrength", dragon.getWingStrength());
+			dragonJSON.put("fireBreath", dragon.getFireBreath());
+			
+			// Create parent object
+			JSONObject parentJSON = new JSONObject();
+			parentJSON.put("dragon", dragonJSON);
+			jsonString = parentJSON.toString(4);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonString;
+	}
 }

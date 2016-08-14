@@ -14,5 +14,6 @@ public class Main {
 //		System.out.println(knight.getAttributePosition(Knight.ENDURANCE));
 		Dragon dragon = DragonCreator.createDragonNormal(knight);
 		System.out.println(dragon);
+		System.out.println(Utils.writeJsonStringFromDragon(dragon));
 	}
 }
