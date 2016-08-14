@@ -69,5 +69,17 @@ public class Knight {
 		this.endurance = endurance;
 	}
 	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("ID: " + id);
+		sb.append("\nNAME: " + name);
+		sb.append("\nATTACK: " + attack);
+		sb.append("\nARMOR: " + armor);
+		sb.append("\nAGILITY: " + agility);
+		sb.append("\nENDURANCE: " + endurance);
+		
+		return sb.toString();
+	}
 	
 }
