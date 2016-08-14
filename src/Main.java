@@ -25,6 +25,10 @@ public class Main {
 
 			if (result.contains("Victory")) {
 				victories++;
+			} else {
+				System.out.println(knight);
+				System.out.println(dragon);
+				System.out.println(result);
 			}
 			battles++;
 			i++;
