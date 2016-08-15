@@ -4,14 +4,15 @@ public class DragonCreator {
 	/*
 	 * Create a dragon to counter a given knight.
 	 * In most cases createDragonNormal() is called to create a normal dragon
-	 * When weather is stormy(HVA) a storm dragon is created
+	 * When weather is heavy rain(HVA) a rain dragon is created
 	 * When weather is dry (T E) a zen dragon is created
+	 * When weather is stormy don't create a dragon
 	 */
 	public static Dragon createDragon(Knight knight, String weatherCode) {
 		Dragon dragon = null;
 		
 		if (weatherCode.equals("HVA")) {
-			dragon = createDragonStorm(knight);
+			dragon = createDragonRain(knight);
 		} else if (weatherCode.equals("T E")) {
 			dragon = createDragonZen(knight);
 		} else {
@@ -60,10 +61,10 @@ public class DragonCreator {
 	}
 	
 	/*
-	 * In stormy weather, clawSharpness must be 10 and fireBreath must be 0.
+	 * In heavy rain weather, clawSharpness must be 10 and fireBreath must be 0.
 	 * scaleThickness and wingStrength are set to 5 to get to 20 stat total.
 	 */
-	public static Dragon createDragonStorm(Knight knight) {
+	public static Dragon createDragonRain(Knight knight) {
 		int id = knight.getId();
 		int scaleThickness = 5;
 		int clawSharpness = 10;
