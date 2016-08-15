@@ -6,7 +6,7 @@ public class DragonCreator {
 	 * In most cases createDragonNormal() is called to create a normal dragon
 	 * When weather is heavy rain(HVA) a rain dragon is created
 	 * When weather is dry (T E) a zen dragon is created
-	 * When weather is stormy don't create a dragon
+	 * When weather is stormy a dragon is created but should not be sent to battle
 	 */
 	public static Dragon createDragon(Knight knight, String weatherCode) {
 		Dragon dragon = null;

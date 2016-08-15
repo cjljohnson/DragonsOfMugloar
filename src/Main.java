@@ -24,7 +24,12 @@ public class Main {
 			//System.out.println(dragon);
 			//System.out.println(Utils.writeJsonStringFromDragon(dragon));
 
-			String result = Utils.putDragon(dragon);
+			String result = null;
+			if (!weatherCode.equals("SRO")) {
+				result = Utils.putDragon(dragon);
+			} else {
+				result = Utils.dontSendDragon(dragon);
+			}
 			//System.out.println(result);
 
 			if (result.contains("Victory")) {

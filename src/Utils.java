@@ -74,28 +74,53 @@ public class Utils {
 		return jsonResponse;
 	}
 
+	// Don't send a dragon (because weather is stormy) and receive VICTORY/DEFEAT response
+	public static String dontSendDragon(Dragon dragon) {
+		// Create URL for dragon put page
+		URL url = null;
+		try {
+			url = new URL("http://www.dragonsofmugloar.com/api/game/" + dragon.getId() + "/solution");
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// jsonDragon is empty string so PUT request has empty body for victory in stormy weather
+		String jsonDragon = "";
+
+		// Perform HTTP request to the URL and receive a JSON response back
+		String jsonResponse = null;
+		try {
+			jsonResponse = makeHttpPutRequest(url, jsonDragon);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return jsonResponse;
+	}
+
 	// Check the weather for a battle and return weather code
 	public static String checkWeather(int id) {
-			// Create URL for weather page
-			URL url = null;
-			try {
-				url = new URL("http://www.dragonsofmugloar.com/weather/api/report/" + id);
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			// Perform HTTP request to the URL and receive a XML response back
-			String xmlResponse = null;
-			try {
-				xmlResponse = makeHttpGetRequest(url);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			//System.out.println(xmlResponse);
-			String code = convertToXML(xmlResponse);
-			//System.out.println(code);
-			return code;
+		// Create URL for weather page
+		URL url = null;
+		try {
+			url = new URL("http://www.dragonsofmugloar.com/weather/api/report/" + id);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// Perform HTTP request to the URL and receive a XML response back
+		String xmlResponse = null;
+		try {
+			xmlResponse = makeHttpGetRequest(url);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// System.out.println(xmlResponse);
+		String code = convertToXML(xmlResponse);
+		// System.out.println(code);
+		return code;
 	}
 
 	// Make put request to server and return response string
@@ -239,30 +264,30 @@ public class Utils {
 		}
 		return null;
 	}
-	
+
 	public static String convertToXML(String xmlString) {
 		// If XML string is empty or null, return early
 		if (xmlString.isEmpty()) {
 			return null;
 		}
-		
+
 		// Convert string to Document
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();  
-	    DocumentBuilder builder; 
-	    Document doc;
-	    try {
-	    	builder = factory.newDocumentBuilder();
-	    	doc = builder.parse(new InputSource(new StringReader(xmlString)));
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-	    	return null;
-	    }
-		
-	    // Get code string from document
-	    Node report = doc.getElementsByTagName("report").item(0);
-	    Element eElement = (Element) report;
-	    String code = eElement.getElementsByTagName("code").item(0).getTextContent();
-	    return code;
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder;
+		Document doc;
+		try {
+			builder = factory.newDocumentBuilder();
+			doc = builder.parse(new InputSource(new StringReader(xmlString)));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		// Get code string from document
+		Node report = doc.getElementsByTagName("report").item(0);
+		Element eElement = (Element) report;
+		String code = eElement.getElementsByTagName("code").item(0).getTextContent();
+		return code;
 	}
 
 	public static String writeJsonStringFromDragon(Dragon dragon) {
