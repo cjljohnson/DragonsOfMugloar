@@ -49,10 +49,29 @@ public class DragonCreator {
 	private static int statModifier(Knight knight, int attribute) {
 		int position = knight.getAttributePosition(attribute);
 		
+		/*
+		 * If more than one attribute is joint top only one needs +2 stats
+		 * If more than one stat is +2 then high chance of failure due to 
+		 * over allocation of stats.
+		 * This loop checks if any stats we have already set is also highest 
+		 * and sets the position to 2 if so to get around this.
+		 */
+		if (position == 1) {
+			int countStatsHighest = 0;
+			for (int i = 1; i < attribute; i++) {
+				if (knight.getAttributePosition(i) == 1) {
+					countStatsHighest++;
+				}
+			}
+			if (countStatsHighest > 0) {
+				position = 2;
+			}
+		}
+		
 		if (position == 1) {
 			return 2;
 		} else if (position == 2) {
-			return -2;
+			return -1;
 		} else if (position == 3 || position == 4) {
 			return -1;
 		} else {
