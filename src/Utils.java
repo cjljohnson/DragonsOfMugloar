@@ -70,8 +70,11 @@ public class Utils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		// Create response string from jsonResponse
+		String report = parseBattleJson(jsonResponse);
 
-		return jsonResponse;
+		return report;
 	}
 
 	// Don't send a dragon (because weather is stormy) and receive VICTORY/DEFEAT response
@@ -95,7 +98,10 @@ public class Utils {
 			e.printStackTrace();
 		}
 
-		return jsonResponse;
+		// Create response string from jsonResponse
+		String report = parseBattleJson(jsonResponse);
+		
+		return report;
 	}
 
 	// Check the weather for a battle and return weather code
@@ -312,11 +318,27 @@ public class Utils {
 			parentJSON.put("dragon", dragonJSON);
 			jsonString = parentJSON.toString(4);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return jsonString;
 	}
 	
-	public static String parseBattleJson(String )
+	public static String parseBattleJson(String battleJSON) {
+		// If JSON string is empty or null, return early
+		if (battleJSON.isEmpty()) {
+			return null;
+		}
+		
+		// Create response string of format "STATUS! MESSAGE"
+		String report = "";
+		try {
+			JSONObject baseJsonResponse = new JSONObject(battleJSON);
+			report += baseJsonResponse.getString("status") + 
+					"! " + baseJsonResponse.getString("message");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return report;
+	}
 }
