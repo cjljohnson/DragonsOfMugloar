@@ -125,9 +125,7 @@ public class DragonCreator {
 		
 		if (position == 1) {
 			return 2;
-		} else if (position == 2) {
-			return -1;
-		} else if (position == 3 || position == 4) {
+		} else if (position == 2 || position == 3 || position == 4) {
 			return -1;
 		} else {
 			System.out.println("ERROR: statModifier() could not get valid position");
