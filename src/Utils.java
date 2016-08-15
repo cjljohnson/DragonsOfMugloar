@@ -81,7 +81,6 @@ public class Utils {
 		try {
 			url = new URL("http://www.dragonsofmugloar.com/api/game/" + dragon.getId() + "/solution");
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -106,7 +105,6 @@ public class Utils {
 		try {
 			url = new URL("http://www.dragonsofmugloar.com/weather/api/report/" + id);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -117,9 +115,10 @@ public class Utils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// System.out.println(xmlResponse);
-		String code = convertToXML(xmlResponse);
-		// System.out.println(code);
+
+		// Get the weather code from xmlResponse
+		String code = parseWeatherCode(xmlResponse);
+
 		return code;
 	}
 
@@ -238,6 +237,7 @@ public class Utils {
 		return output.toString();
 	}
 
+	// Create Knight object from knightJSON string response
 	public static Knight extractKnightFromJson(String knightJSON) {
 		// If JSON string is empty or null, return early
 		if (knightJSON.isEmpty()) {
@@ -265,7 +265,8 @@ public class Utils {
 		return null;
 	}
 
-	public static String convertToXML(String xmlString) {
+	// Convert xmlString into Document and return weather code
+	public static String parseWeatherCode(String xmlString) {
 		// If XML string is empty or null, return early
 		if (xmlString.isEmpty()) {
 			return null;
@@ -290,6 +291,7 @@ public class Utils {
 		return code;
 	}
 
+	// Convert Dragon object into JSON string
 	public static String writeJsonStringFromDragon(Dragon dragon) {
 		// If Dragon is null, return early
 		if (dragon == null) {
