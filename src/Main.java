@@ -42,6 +42,7 @@ public class Main {
 				System.out.println(weatherCode);
 				
 			}
+			System.out.print("ID: " + knight.getId() + "    ");
 			System.out.println(result);
 			battles++;
 			i++;
