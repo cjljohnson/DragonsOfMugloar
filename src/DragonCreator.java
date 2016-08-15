@@ -2,6 +2,27 @@
 public class DragonCreator {
 
 	/*
+	 * Create a dragon to counter a given knight.
+	 * In most cases createDragonNormal() is called to create a normal dragon
+	 * When weather is stormy(HVA) a storm dragon is created
+	 * When weather is dry (T E) a zen dragon is created
+	 */
+	public static Dragon createDragon(Knight knight, String weatherCode) {
+		Dragon dragon = null;
+		
+		if (weatherCode == "HVA") {
+			dragon = createDragonStorm(knight);
+		} else if (weatherCode == "T E") {
+			dragon = createDragonZen(knight);
+		} else {
+			dragon = createDragonNormal(knight);
+		}
+		
+		return dragon;
+	}
+	
+	
+	/*
 	 * Create dragon for knight in normal weather.
 	 * Stats have the following relationship (knight => dragon):
 	 * attack     =>   scaleThickness
@@ -39,6 +60,36 @@ public class DragonCreator {
 	}
 	
 	/*
+	 * In stormy weather, clawSharpness must be 10 and fireBreath must be 0.
+	 * scaleThickness and wingStrength are set to 5 to get to 20 stat total.
+	 */
+	public static Dragon createDragonStorm(Knight knight) {
+		int id = knight.getId();
+		int scaleThickness = 5;
+		int clawSharpness = 10;
+		int wingStrength = 5;
+		int fireBreath = 0;
+		
+		// Create dragon with calculated stats
+		return new Dragon(id, scaleThickness, clawSharpness, wingStrength, fireBreath);
+	}
+	
+	/*
+	 * When weather is dry, all stats must be 5.
+	 */
+	public static Dragon createDragonZen(Knight knight) {
+		int id = knight.getId();
+		int scaleThickness = 5;
+		int clawSharpness = 5;
+		int wingStrength = 5;
+		int fireBreath = 5;
+		
+		// Create dragon with calculated stats
+		return new Dragon(id, scaleThickness, clawSharpness, wingStrength, fireBreath);
+	}
+	
+	
+	/*
 	 * Calculate the modifier for the dragon stat to counter the dragon stat.
 	 * Stat modifier is dependent on the relation between the knight's stats.
 	 * Highest stat must be at least +2
@@ -55,6 +106,9 @@ public class DragonCreator {
 		 * over allocation of stats.
 		 * This loop checks if any stats we have already set is also highest 
 		 * and sets the position to 2 if so to get around this.
+		 * 
+		 * This is bad code that will break if you set attributes in different 
+		 * order or change the constants in Knight.
 		 */
 		if (position == 1) {
 			int countStatsHighest = 0;
