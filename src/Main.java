@@ -13,10 +13,14 @@ public class Main {
 		int victories = 0;
 		int i = 0;
 		while (i < 100) {
+			// Fetch a new knight from server
 			Knight knight = Utils.fetchKnight();
 
+			// Check weather for battle
+			String weatherCode = Utils.checkWeather(knight.getId());
+					
 			//System.out.println(knight);
-			Dragon dragon = DragonCreator.createDragonNormal(knight);
+			Dragon dragon = DragonCreator.createDragon(knight, weatherCode);
 			//System.out.println(dragon);
 			//System.out.println(Utils.writeJsonStringFromDragon(dragon));
 
@@ -28,6 +32,7 @@ public class Main {
 			} else {
 				System.out.println(knight);
 				System.out.println(dragon);
+				System.out.println(weatherCode);
 				System.out.println(result);
 			}
 			battles++;

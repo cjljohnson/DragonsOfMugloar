@@ -5,15 +5,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
 
 public class Utils {
 
@@ -64,6 +72,30 @@ public class Utils {
 		}
 
 		return jsonResponse;
+	}
+
+	// Check the weather for a battle and return weather code
+	public static String checkWeather(int id) {
+			// Create URL for weather page
+			URL url = null;
+			try {
+				url = new URL("http://www.dragonsofmugloar.com/weather/api/report/" + id);
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Perform HTTP request to the URL and receive a XML response back
+			String xmlResponse = null;
+			try {
+				xmlResponse = makeHttpGetRequest(url);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//System.out.println(xmlResponse);
+			String code = convertToXML(xmlResponse);
+			//System.out.println(code);
+			return code;
 	}
 
 	// Make put request to server and return response string
@@ -206,6 +238,31 @@ public class Utils {
 			System.out.println("extractKnightFromJsonfailed to parse string: " + knightJSON);
 		}
 		return null;
+	}
+	
+	public static String convertToXML(String xmlString) {
+		// If XML string is empty or null, return early
+		if (xmlString.isEmpty()) {
+			return null;
+		}
+		
+		// Convert string to Document
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();  
+	    DocumentBuilder builder; 
+	    Document doc;
+	    try {
+	    	builder = factory.newDocumentBuilder();
+	    	doc = builder.parse(new InputSource(new StringReader(xmlString)));
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    	return null;
+	    }
+		
+	    // Get code string from document
+	    Node report = doc.getElementsByTagName("report").item(0);
+	    Element eElement = (Element) report;
+	    String code = eElement.getElementsByTagName("code").item(0).getTextContent();
+	    return code;
 	}
 
 	public static String writeJsonStringFromDragon(Dragon dragon) {
