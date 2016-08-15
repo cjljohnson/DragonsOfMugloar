@@ -51,7 +51,7 @@ public class Utils {
 	}
 
 	// Put a dragon to server and receive VICTORY/DEFEAT response
-	public static String putDragon(Dragon dragon) {
+	public static String sendDragon(Dragon dragon) {
 		// Create URL for dragon put page
 		URL url = null;
 		try {
@@ -317,4 +317,6 @@ public class Utils {
 		}
 		return jsonString;
 	}
+	
+	public static String parseBattleJson(String )
 }

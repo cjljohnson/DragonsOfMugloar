@@ -28,7 +28,7 @@ public class Main {
 			// If weather is stormy no dragon is sent
 			String result = null;
 			if (!weatherCode.equals("SRO")) {
-				result = Utils.putDragon(dragon);
+				result = Utils.sendDragon(dragon);
 			} else {
 				result = Utils.dontSendDragon(dragon);
 			}
