@@ -10,9 +10,9 @@ public class DragonCreator {
 	public static Dragon createDragon(Knight knight, String weatherCode) {
 		Dragon dragon = null;
 		
-		if (weatherCode == "HVA") {
+		if (weatherCode.equals("HVA")) {
 			dragon = createDragonStorm(knight);
-		} else if (weatherCode == "T E") {
+		} else if (weatherCode.equals("T E")) {
 			dragon = createDragonZen(knight);
 		} else {
 			dragon = createDragonNormal(knight);
